@@ -5,7 +5,7 @@ import { auth, provider } from '@/components/Firebase';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import authState from '@/pages/atom';
+import { authState } from '@/pages/atom';
 
 const Login: FC = () => {
   const [error, setError] = useState<string | null>(null);

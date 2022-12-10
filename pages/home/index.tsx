@@ -1,13 +1,14 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import authState from '@/pages/atom';
+import { authState } from '@/pages/atom';
 import axios from 'axios';
 
 const Home: FC = () => {
   const [user, setUser] = useRecoilState(authState);
   const [message, setMessage] = useState<string | null>(null);
   const name = user?.displayName;
+  const token = user?.getIdToken(true);
 
   useEffect(() => {
     axios
