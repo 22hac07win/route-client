@@ -1,15 +1,13 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
-
-import { auth, provider } from '@/components/Firebase';
-import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/components/Firebase';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState, tokenState } from '@/pages/atom';
 
-const Login: FC = () => {
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useRecoilState(userState);
+const Logout: FC = () => {
+  const setUser = useSetRecoilState(userState);
   const setToken = useSetRecoilState(tokenState);
   const router = useRouter();
 
@@ -31,9 +29,9 @@ const Login: FC = () => {
     return unsubscribe;
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signOut = async () => {
     try {
-      await signInWithPopup(auth, provider);
+      await auth.signOut();
     } catch (e: unknown) {
       if (e instanceof Error) {
         console.error(e.message);
@@ -43,10 +41,9 @@ const Login: FC = () => {
 
   return (
     <>
-      {error && <p>{error}</p>}
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
+      <button onClick={signOut}>Sign out</button>
     </>
   );
 };
 
-export default Login;
+export default Logout;

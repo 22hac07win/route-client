@@ -1,29 +1,37 @@
 import axios from 'axios';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { noteState } from '@/pages/atom';
+import { useRouter } from 'next/router';
+import { userState, tokenState } from '@/pages/atom';
 
-type Props = {
-  token: string;
-};
-
-const GetNote: FC<Props> = (props: Props) => {
-  const { token } = props;
+export const GetNote: FC = () => {
   const [note, setNote] = useRecoilState(noteState);
+  const [user, setUser] = useRecoilState(userState);
+  const [token, setToken] = useRecoilState(tokenState);
+  const router = useRouter();
 
-  axios
-    .get('http://localhost:8080/ping', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      console.log(res.data);
-      setNote(res.data.message);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!token) {
+          router.push('/');
+        }
+
+        const res = await axios.get('http://localhost:8080/private/ping', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setNote(res.data.message);
+      } catch (e: unknown) {
+        if (e instanceof Error) {
+          console.error(e.message);
+        }
+      }
+    })();
+  }, []);
 
   return (
     <>
