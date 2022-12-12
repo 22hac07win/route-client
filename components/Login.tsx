@@ -1,5 +1,5 @@
 import React from 'react';
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import { auth, provider } from '@/components/Firebase';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
@@ -7,8 +7,12 @@ import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState, tokenState } from '@/pages/atom';
 
+import { Button, Container, Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AccountCircle } from '@mui/icons-material';
+import { isPropertyAccessChain } from 'typescript';
+
 const Login: FC = () => {
-  const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useRecoilState(userState);
   const setToken = useSetRecoilState(tokenState);
   const router = useRouter();
@@ -41,11 +45,35 @@ const Login: FC = () => {
     }
   };
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#404459',
+      },
+    },
+  });
+
   return (
-    <>
-      {error && <p>{error}</p>}
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
-    </>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <Button
+          startIcon={<AccountCircle />}
+          onClick={signInWithGoogle}
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{
+            mt: 3,
+            mb: 2,
+          }}
+        >
+          <Typography component="h1" variant="h6">
+            Sign In With Google
+          </Typography>
+        </Button>
+      </Container>
+    </ThemeProvider>
   );
 };
 
