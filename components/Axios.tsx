@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { FC, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { messageState } from '@/app/grobalState/atom';
+import { messageState } from '@/grobalState/atom';
 import { useRouter } from 'next/router';
-import { tokenState } from '@/app/grobalState/atom';
+import { tokenState } from '@/grobalState/atom';
 
 export const GetMessage: FC = () => {
   const [resMes, setResMes] = useRecoilState(messageState);

@@ -1,4 +1,4 @@
-import Login from '@/app/components/Login';
+import Login from '@/components/Login';
 
 const Top = () => {
   return <Login />;

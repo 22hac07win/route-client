@@ -1,11 +1,11 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '@/app/pages/atom';
+import { userState } from '@/grobalState/atom';
 import axios from 'axios';
-import { GetMessage } from '@/app/components/Axios';
-import Logout from '@/app/components/Logout';
-import { auth } from '@/app/components/Firebase';
+import { GetMessage } from '@/components/Axios';
+import Logout from '@/components/Logout';
+import { auth } from '@/components/Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 

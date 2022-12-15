@@ -1,10 +1,10 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/app/components/Firebase';
+import { auth } from '@/components/Firebase';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState, tokenState } from '@/app/pages/atom';
+import { userState, tokenState } from '@/grobalState/atom';
 
 const Logout: FC = () => {
   const setUser = useSetRecoilState(userState);
