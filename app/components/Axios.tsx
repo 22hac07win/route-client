@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { FC, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { noteState } from '@/pages/atom';
+import { messageState } from '@/app/grobalState/atom';
 import { useRouter } from 'next/router';
-import { userState, tokenState } from '@/pages/atom';
+import { tokenState } from '@/app/grobalState/atom';
 
-export const GetNote: FC = () => {
-  const [note, setNote] = useRecoilState(noteState);
-  const [user, setUser] = useRecoilState(userState);
+export const GetMessage: FC = () => {
+  const [resMes, setResMes] = useRecoilState(messageState);
   const [token, setToken] = useRecoilState(tokenState);
   const router = useRouter();
 
@@ -18,13 +17,14 @@ export const GetNote: FC = () => {
           router.push('/');
         }
 
-        const res = await axios.get('http://localhost:8080/private/ping', {
+        const res = await axios.post('http://localhost:8080/api/message', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          message: 'message',
         });
 
-        setNote(res.data.message);
+        setResMes(res.data.message);
       } catch (e: unknown) {
         if (e instanceof Error) {
           console.error(e.message);
@@ -35,7 +35,7 @@ export const GetNote: FC = () => {
 
   return (
     <>
-      <p>{note}</p>
+      <p>{resMes}</p>
     </>
   );
 };

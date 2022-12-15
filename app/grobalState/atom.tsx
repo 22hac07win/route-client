@@ -1,16 +1,20 @@
 import { atom } from 'recoil';
-import { User } from 'firebase/auth';
+import { UserState } from '../types/type';
 
-export type AuthState = User | null;
-
-export const userState = atom<AuthState>({
+export const userState = atom<UserState>({
   key: 'userState',
   default: null,
   dangerouslyAllowMutability: true,
 });
 
-export const noteState = atom<string>({
+export const messageState = atom<string>({
   key: 'note',
+  default: '',
+  dangerouslyAllowMutability: true,
+});
+
+export const sendTextState = atom<string>({
+  key: 'sendMessage',
   default: '',
   dangerouslyAllowMutability: true,
 });

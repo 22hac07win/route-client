@@ -1,11 +1,11 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '@/pages/atom';
+import { userState } from '@/app/pages/atom';
 import axios from 'axios';
-import { GetNote } from '@/components/Axios';
-import Logout from '@/components/Logout';
-import { auth } from '@/components/Firebase';
+import { GetMessage } from '@/app/components/Axios';
+import Logout from '@/app/components/Logout';
+import { auth } from '@/app/components/Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 
@@ -30,7 +30,7 @@ const Home: FC = () => {
     <>
       <p>Home Page</p>
       <p>{user?.displayName}</p>
-      <GetNote />
+      <GetMessage />
       <Logout />
     </>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 import { FC, useEffect } from 'react';
 
-import { auth, provider } from '@/components/Firebase';
+import { auth, provider } from '@/app/components/Firebase';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState, tokenState } from '@/pages/atom';
+import { userState, tokenState } from '@/app/grobalState/atom';
 
 import { Button, Container, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
