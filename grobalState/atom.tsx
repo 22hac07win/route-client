@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { UserState } from '../types/type';
+import { UserState, ResState, ReqState } from '../types/type';
 
 export const userState = atom<UserState>({
   key: 'userState',
@@ -7,14 +7,26 @@ export const userState = atom<UserState>({
   dangerouslyAllowMutability: true,
 });
 
-export const messageState = atom<string>({
-  key: 'note',
+export const nextIdState = atom<string>({
+  key: 'nextIdState',
   default: '',
   dangerouslyAllowMutability: true,
 });
 
-export const sendTextState = atom<string>({
-  key: 'sendMessage',
+export const reqState = atom<ReqState>({
+  key: 'reqState',
+  default: null,
+  dangerouslyAllowMutability: true,
+});
+
+export const resState = atom<ResState>({
+  key: 'resState',
+  default: null,
+  dangerouslyAllowMutability: true,
+});
+
+export const inputState = atom<string>({
+  key: 'inputState',
   default: '',
   dangerouslyAllowMutability: true,
 });

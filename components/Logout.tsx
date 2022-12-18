@@ -5,11 +5,14 @@ import { auth } from '@/components/Firebase';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState, tokenState } from '@/grobalState/atom';
+import { Button } from 'evergreen-ui';
+import { useInitRequest } from '@/hooks/useInitRequest';
 
 const Logout: FC = () => {
   const setUser = useSetRecoilState(userState);
   const setToken = useSetRecoilState(tokenState);
   const router = useRouter();
+  const { sentInitReq } = useInitRequest();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -18,6 +21,10 @@ const Logout: FC = () => {
         authUser.getIdToken().then((token) => {
           setToken(token);
         });
+
+        console.log('Login');
+
+        sentInitReq();
         router.push('/home');
       } else {
         setUser(null);
@@ -41,7 +48,7 @@ const Logout: FC = () => {
 
   return (
     <>
-      <button onClick={signOut}>Sign out</button>
+      <Button onClick={signOut}>Sign out</Button>
     </>
   );
 };
