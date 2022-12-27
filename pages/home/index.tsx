@@ -7,9 +7,12 @@ import axios from 'axios';
 import Logout from '@/components/Logout';
 import { auth } from '@/components/Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import ViewText from '@/components/ViewText';
 import SendBox from '@/components/SendBox';
+
 import {
   Button,
   Heading,
@@ -48,11 +51,21 @@ const Home: FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Pane display="flex" padding={30}>
-            <Heading is="h2">Home</Heading>
-            <Text>{user?.displayName}</Text>
-            <Logout />
+          <Pane
+            width="100%"
+            display="flex"
+            justifyContent="flex-end"
+            padding={10}
+            margin={10}
+          >
+            <Pane marginTop={15}>
+              <Text>{user?.displayName}</Text>
+            </Pane>
+            <Pane margin={10}>
+              <Logout />
+            </Pane>
           </Pane>
+          <Text size={600}>Home</Text>
           <ViewText />
           <Pane display="flex" padding={30}>
             <SendBox />

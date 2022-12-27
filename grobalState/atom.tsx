@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { UserState, ResState, ReqState } from '../types/type';
+import { UserState, ResState, ReqState, InputState } from '../types/type';
 
 export const userState = atom<UserState>({
   key: 'userState',

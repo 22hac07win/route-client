@@ -5,7 +5,7 @@ import { auth } from '@/components/Firebase';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState, tokenState } from '@/grobalState/atom';
-import { Button } from 'evergreen-ui';
+import { Button, IconButton, LogOutIcon } from 'evergreen-ui';
 import { useInitRequest } from '@/hooks/useInitRequest';
 
 const Logout: FC = () => {
@@ -48,7 +48,9 @@ const Logout: FC = () => {
 
   return (
     <>
-      <Button onClick={signOut}>Sign out</Button>
+      <IconButton icon={LogOutIcon} intent="danger" onClick={signOut}>
+        Sign out
+      </IconButton>
     </>
   );
 };

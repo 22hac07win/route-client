@@ -5,9 +5,16 @@ export type Text = string | null;
 
 export type ReqState = Req | null;
 
+export type InputState = Input | null;
+
+export type Input = {
+  key: string;
+  body: string;
+};
+
 export type Req = {
   nextId: string;
-  input?: string;
+  input?: Input;
   optionText?: string;
 };
 
@@ -25,7 +32,7 @@ export type Res = {
   id: string;
   blockType: BlockType;
   text: string;
-  input?: string;
+  inputKey?: string;
   options?: Option[];
   nextId?: string;
 };

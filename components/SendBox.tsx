@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { inputState, resState, nextIdState } from '@/grobalState/atom';
-import { ResState } from '@/types/type';
+import { ResState, Req, InputState, Input } from '@/types/type';
 import {
   TextInput,
   Button,
@@ -16,42 +16,78 @@ const SendBox: FC = () => {
   const [input, setInput] = useRecoilState<string>(inputState);
   const res = useRecoilValue<ResState>(resState);
   const [nextId, setNextId] = useRecoilState<string>(nextIdState);
+
+  const { isLoading, isError, sentReq } = usePostRequest();
+
   const chageInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
-  const { isLoading, isError, sentReq } = usePostRequest();
-  console.log(res?.options);
+
+  const onClickOption = (id: string) => {
+    const req: Req = {
+      nextId: id,
+    };
+    sentReq(req);
+  };
+
+  const onClickNextId = (res: ResState) => {
+    if (res?.nextId !== undefined) {
+      if (res?.inputKey != null) {
+        const data: Input = {
+          key: res.inputKey,
+          body: input,
+        };
+
+        const req: Req = {
+          nextId: res.nextId,
+          input: data,
+        };
+
+        sentReq(req);
+        setInput('');
+      } else {
+        const req: Req = {
+          nextId: res.nextId,
+        };
+
+        sentReq(req);
+        setInput('');
+      }
+    }
+  };
 
   return (
     <>
       <Pane display="flex" flexDirection="column">
-        {res?.options?.map((option) => {
-          return (
-            <>
-              <Button
-                onClick={() => {
-                  sentReq(option.nextBlockId);
-                }}
-              >
-                {option.optionText} ({option.nextBlockId})
-              </Button>
-            </>
-          );
-        })}
-
-        <Pane display="flex">
-          {res?.input != null ? (
-            <TextInput onChange={chageInput} value={input} />
-          ) : (
-            <TextInput disabled />
-          )}
-          <IconButton
-            icon={ArrowRightIcon}
-            onClick={() => {
-              sentReq(nextId);
-            }}
-          />
-        </Pane>
+        {res?.options != null ? (
+          res?.options?.map((option) => {
+            return (
+              <>
+                <Button
+                  onClick={() => {
+                    onClickOption(option.nextBlockId);
+                  }}
+                >
+                  {option.optionText} ({option.nextBlockId})
+                </Button>
+              </>
+            );
+          })
+        ) : (
+          <Pane display="flex">
+            {res?.inputKey != '' ? (
+              <TextInput onChange={chageInput} value={input} />
+            ) : (
+              <TextInput disabled value={input} />
+            )}
+            <IconButton
+              icon={ArrowRightIcon}
+              onClick={() => {
+                onClickNextId(res);
+              }}
+            />
+          </Pane>
+        )}
       </Pane>
     </>
   );

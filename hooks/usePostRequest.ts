@@ -17,7 +17,7 @@ export const usePostRequest = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
-  const sentReq = async (id: string) => {
+  const sentReq = async (req: Req) => {
     setIsLoading(true);
     setIsLoading(false);
 
@@ -25,12 +25,13 @@ export const usePostRequest = () => {
 
     axios
       .post('http://localhost:8080/message', {
-        /*  
-      headers: {
+        /*
+        headers: {
           Authorization: `Bearer ${token}`,
         },
-      */
-        nextId: id,
+        */
+        nextId: req?.nextId,
+        input: req?.input,
       })
       .then((result) => {
         console.log(result);

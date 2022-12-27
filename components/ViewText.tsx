@@ -18,6 +18,7 @@ const TextBox: FC<Props> = ({ body }) => {
         minWidth={500}
         height={120}
         margin={24}
+        white-space="normal"
       >
         <Text size={300}>{body}</Text>
       </Card>
